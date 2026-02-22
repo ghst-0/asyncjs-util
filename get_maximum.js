@@ -1,7 +1,7 @@
-const asyncAuto = require('async/auto');
-const asyncWhilst = require('async/whilst');
+import asyncAuto from 'async/auto.js';
+import asyncWhilst from 'async/whilst.js';
 
-const returnResult = require('./return_result');
+import returnResult from './return_result.js';
 
 /** Get maximum value through binary search
 
@@ -18,9 +18,9 @@ const returnResult = require('./return_result');
     maximum: <Maximum Number>
   }
 */
-module.exports = ({accuracy, from, to}, test, cbk) => {
+export default ({accuracy, from, to}, test, cbk) => {
   return new Promise((resolve, reject) => {
-    return asyncAuto({
+    asyncAuto({
       // Check arguments
       validate: cbk => {
         if (from === undefined) {
@@ -57,7 +57,7 @@ module.exports = ({accuracy, from, to}, test, cbk) => {
 
             // Find out where the cursor lies in the range
             return test({cursor}, (err, isLow) => {
-              if (!!err) {
+              if (err) {
                 return cbk(err);
               }
 
@@ -75,7 +75,7 @@ module.exports = ({accuracy, from, to}, test, cbk) => {
             });
           },
           err => {
-            if (!!err) {
+            if (err) {
               return cbk(err);
             }
 

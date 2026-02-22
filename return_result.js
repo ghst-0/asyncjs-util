@@ -12,20 +12,20 @@
   @returns
   <Function> (err, res) => {}
 */
-module.exports = (args, cbk) => {
+export default (args, cbk) => {
   if (!cbk && !(!!args.reject && !!args.resolve)) {
     throw new Error('ExpectedCbkOrPromiseFunctionsToReturnResult');
   }
 
   return (err, res) => {
-    if (!!err) {
-      return !cbk ? args.reject(err) : cbk(err);
+    if (err) {
+      return cbk ? cbk(err) : args.reject(err);
     }
 
-    if (!!args.of) {
-      return !cbk ? args.resolve(res[args.of]) : cbk(null, res[args.of]);
+    if (args.of) {
+      return cbk ? cbk(null, res[args.of]) : args.resolve(res[args.of]);
     }
 
-    return !cbk ? args.resolve() : cbk();
+    return cbk ? cbk() : args.resolve();
   };
 };

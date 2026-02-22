@@ -1,6 +1,6 @@
-const getMaximum = require('./get_maximum');
-const returnResult = require('./return_result');
+import getMaximum from './get_maximum';
+import returnResult from './return_result';
 
 /** Async utilities
 */
-module.exports = {getMaximum, returnResult};
+export { getMaximum, returnResult };

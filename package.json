@@ -8,11 +8,12 @@
   },
   "description": "Asyncjs Utilities",
   "dependencies": {
-    "async": "3.2.4"
+    "async": "3.2.6"
   },
   "keywords": [
     "asyncjs"
   ],
+  "type": "module",
   "license": "MIT",
   "homepage": "https://github.com/alexbosworth/asyncjs-util#readme",
   "main": "index.js",
