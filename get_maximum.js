@@ -1,7 +1,7 @@
 import asyncAuto from 'async/auto.js';
 import asyncWhilst from 'async/whilst.js';
 
-import returnResult from './return_result.js';
+import { returnResult } from './return_result.js';
 
 /** Get maximum value through binary search
 
@@ -18,7 +18,7 @@ import returnResult from './return_result.js';
     maximum: <Maximum Number>
   }
 */
-export default ({accuracy, from, to}, test, cbk) => {
+const getMaximum = ({accuracy, from, to}, test, cbk) => {
   return new Promise((resolve, reject) => {
     asyncAuto({
       // Check arguments
@@ -92,3 +92,5 @@ export default ({accuracy, from, to}, test, cbk) => {
     returnResult({reject, resolve, of: 'search'}, cbk));
   });
 };
+
+export { getMaximum }

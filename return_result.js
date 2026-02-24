@@ -12,7 +12,7 @@
   @returns
   <Function> (err, res) => {}
 */
-export default (args, cbk) => {
+const returnResult = (args, cbk) => {
   if (!cbk && !(!!args.reject && !!args.resolve)) {
     throw new Error('ExpectedCbkOrPromiseFunctionsToReturnResult');
   }
@@ -29,3 +29,5 @@ export default (args, cbk) => {
     return cbk ? cbk() : args.resolve();
   };
 };
+
+export { returnResult }

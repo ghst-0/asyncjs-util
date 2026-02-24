@@ -1,8 +1,7 @@
-const {deepStrictEqual} = require('node:assert').strict;
-const {rejects} = require('node:assert').strict;
-const test = require('node:test');
+import { deepStrictEqual, rejects } from 'node:assert/strict';
+import test from 'node:test';
 
-const getMaximum = require('./../get_maximum');
+import { getMaximum } from './../get_maximum.js';
 
 const space = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
@@ -56,16 +55,14 @@ const tests = [
   },
 ];
 
-tests.forEach(({args, description, error, expected}) => {
-  return test(description, async () => {
-    if (!!error) {
+for (const { args, description, error, expected } of tests) {
+  test(description, async () => {
+    if (error) {
       await rejects(getMaximum(args, args.test), error, 'Got expected error');
     } else {
-      const {maximum} = await getMaximum(args, args.test);
+      const { maximum } = await getMaximum(args, args.test);
 
       deepStrictEqual(maximum, expected.maximum, 'Got expected value');
     }
-
-    return;
-  });
-});
+  })
+}

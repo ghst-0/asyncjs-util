@@ -1,9 +1,7 @@
-const {deepStrictEqual} = require('node:assert').strict;
-const {rejects} = require('node:assert').strict;
-const test = require('node:test');
-const {throws} = require('node:assert').strict;
+import { deepStrictEqual, rejects, throws } from 'node:assert/strict';
+import test from 'node:test';
 
-const {returnResult} = require('./../');
+import { returnResult } from '../return_result.js';
 
 const tests = [
   {
@@ -37,17 +35,17 @@ test('A callback or promise function is required', (t, end) => {
   return end();
 });
 
-tests.forEach(({args, description, error, expected, result}) => {
+for (const { args, description, error, expected, result } of tests) {
   const promise = (err, resolution) => new Promise((resolve, reject) => {
-    return returnResult({reject, resolve, of: args.of})(err, resolution);
+    returnResult({reject, resolve, of: args.of})(err, resolution);
   });
 
-  return test(description, async () => {
+  test(description, async () => {
     // Promise methods
-    if (!error) {
-      deepStrictEqual(await promise(null, {foo: result.res}), expected);
-    } else {
+    if (error) {
       await rejects(promise(error), result.err);
+    } else {
+      deepStrictEqual(await promise(null, { foo: result.res }), expected);
     }
 
     // Callback methods
@@ -56,6 +54,6 @@ tests.forEach(({args, description, error, expected, result}) => {
       deepStrictEqual(res, expected, 'Callback returns result');
 
       return;
-    })(result.err, {foo: result.res});
-  });
-});
+    })(result.err, { foo: result.res });
+  })
+}
